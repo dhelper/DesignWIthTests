@@ -9,5 +9,7 @@ namespace PhoneCall.Core
     public interface IPhoneClient
     {
         event EventHandler OnPhoneRing;
+
+        object Connect();
     }
 }

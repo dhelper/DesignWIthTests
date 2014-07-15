@@ -23,7 +23,33 @@ namespace PhoneCall.Core.Tests
 
             fakeClient.OnPhoneRing += Raise.WithEmpty().Now;
 
-            Assert.That(fakeClient, Is.True);
+            Assert.That(wasCalled, Is.True);
+        }
+
+        [Test]
+        public void OnPhoneRings_PhoneRingsMessageAndUserAcceptsCall_ConnectToServer()
+        {
+            var fakeClient = A.Fake<IPhoneClient>();
+
+            var phone = new Phone(fakeClient);
+           
+            fakeClient.OnPhoneRing += Raise.WithEmpty().Now;
+
+            phone.AcceptCall();
+
+            A.CallTo(() => fakeClient.Connect()).MustHaveHappened();
+        }
+
+        [Test]
+        public void AcceptCall_WithoutPhoneRing_DoNotConnectToServer()
+        {
+            var fakeClient = A.Fake<IPhoneClient>();
+
+            var phone = new Phone(fakeClient);
+
+            phone.AcceptCall();
+
+            A.CallTo(() => fakeClient.Connect()).MustNotHaveHappened();
         }
     }
 }
