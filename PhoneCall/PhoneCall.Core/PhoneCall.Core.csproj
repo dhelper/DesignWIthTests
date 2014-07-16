@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="New\IdleState.cs" />
     <Compile Include="New\InCall.cs" />
     <Compile Include="New\PrepareCall.cs" />
+    <Compile Include="New\StateBase.cs" />
     <Compile Include="New\WaitForMessage.cs" />
     <Compile Include="Phone.cs" />
     <Compile Include="New\Phone2.cs" />
