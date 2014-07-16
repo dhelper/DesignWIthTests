@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//using Phone = PhoneCall.Core.Phone2;
 
 namespace PhoneCall.Core.Tests
 {
@@ -87,7 +88,7 @@ namespace PhoneCall.Core.Tests
         }
 
         [Test]
-        public void OnPhoneRings_CalledTwice_OnlyRaiseOnEvent()
+        public void OnPhoneRings_CalledTwice_OnlyRaiseOneEvent()
         {
             var fakeClient = A.Fake<IPhoneClient>();
 
