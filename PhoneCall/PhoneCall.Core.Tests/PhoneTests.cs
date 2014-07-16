@@ -51,5 +51,38 @@ namespace PhoneCall.Core.Tests
 
             A.CallTo(() => fakeClient.Connect()).MustNotHaveHappened();
         }
+
+        [Test]
+        public void OnPhoneRings_PhoneRingsMessageAndUserRejectCall_EndCall()
+        {
+            var fakeClient = A.Fake<IPhoneClient>();
+
+            var phone = new Phone(fakeClient);
+            var numberTimeCalled =  0;
+            phone.OnRing += (o, e) => numberTimeCalled++;
+
+            fakeClient.OnPhoneRing += Raise.WithEmpty().Now;
+
+            phone.RejectCall();
+
+             fakeClient.OnPhoneRing += Raise.WithEmpty().Now;
+
+            Assert.That(numberTimeCalled, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void OnPhoneRings_CalledTwice_OnlyRaiseOnEvent()
+        {
+            var fakeClient = A.Fake<IPhoneClient>();
+
+            var phone = new Phone(fakeClient);
+            var numberTimeCalled = 0;
+            phone.OnRing += (o, e) => numberTimeCalled++;
+
+            fakeClient.OnPhoneRing += Raise.WithEmpty().Now;
+            fakeClient.OnPhoneRing += Raise.WithEmpty().Now;
+
+            Assert.That(numberTimeCalled, Is.EqualTo(1));
+        }
     }
 }

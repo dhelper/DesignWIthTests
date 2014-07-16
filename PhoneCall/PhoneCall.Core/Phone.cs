@@ -22,9 +22,12 @@ namespace PhoneCall.Core
 
         private void HandlePhoneRing(object sender, EventArgs e)
         {
-            _phoneAlreadyRang = true;
+            if (_phoneAlreadyRang == false)
+            {
+                _phoneAlreadyRang = true;
 
-            InvokePhoneRing(e);
+                InvokePhoneRing(e);
+            }
         }
 
         public void InvokePhoneRing(EventArgs eventArgs)
@@ -43,6 +46,11 @@ namespace PhoneCall.Core
             {
                 _client.Connect();
             }
+        }
+
+        public void RejectCall()
+        {
+            _phoneAlreadyRang = false;
         }
     }
 
