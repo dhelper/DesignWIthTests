@@ -10,6 +10,7 @@ namespace PhoneCall.Core
     {
         private IPhoneClient _client;
         private bool _phoneAlreadyRang;
+        private bool _callAccepted;
 
         public event EventHandler OnRing;
 
@@ -18,6 +19,15 @@ namespace PhoneCall.Core
             this._client = client;
 
             _client.OnPhoneRing += HandlePhoneRing;
+            _client.OnConnectedToServer += HandleConnectedToServer;
+        }
+
+        private void HandleConnectedToServer(object sender, EventArgs e)
+        {
+            if (_callAccepted)
+            {
+                _client.Connect();
+            }
         }
 
         private void HandlePhoneRing(object sender, EventArgs e)
@@ -44,7 +54,7 @@ namespace PhoneCall.Core
         {
             if (_phoneAlreadyRang)
             {
-                _client.Connect();
+                _callAccepted = true;
             }
         }
 

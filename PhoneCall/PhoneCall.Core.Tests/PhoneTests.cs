@@ -27,7 +27,7 @@ namespace PhoneCall.Core.Tests
         }
 
         [Test]
-        public void OnPhoneRings_PhoneRingsMessageAndUserAcceptsCall_ConnectToServer()
+        public void OnPhoneRings_PhoneRingsMessageAndUserAcceptsCallThenRecieveMessageFromCaller_ConnectToServer()
         {
             var fakeClient = A.Fake<IPhoneClient>();
 
@@ -37,7 +37,23 @@ namespace PhoneCall.Core.Tests
 
             phone.AcceptCall();
 
+            fakeClient.OnConnectedToServer += Raise.WithEmpty().Now;
+
             A.CallTo(() => fakeClient.Connect()).MustHaveHappened();
+        }
+
+        [Test]
+        public void OnPhoneRings_PhoneRingsMessageAndUserAcceptsCall_DoNotConnectToServer()
+        {
+            var fakeClient = A.Fake<IPhoneClient>();
+
+            var phone = new Phone(fakeClient);
+
+            fakeClient.OnPhoneRing += Raise.WithEmpty().Now;
+
+            phone.AcceptCall();
+
+            A.CallTo(() => fakeClient.Connect()).MustNotHaveHappened();
         }
 
         [Test]
