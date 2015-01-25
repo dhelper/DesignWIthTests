@@ -31,5 +31,20 @@ namespace PhoneCall.Core.Tests
 
             A.CallTo(() => fakeClient.Connect()).MustNotHaveHappened();
         }
+
+        [Test]
+        public void OnPhoneRings_PhoneRingsMessageAndUserRejectCall_EndCall()
+        {
+            var fakeClient = A.Fake<IPhoneClient>();
+
+            var phone = new Phone(fakeClient);
+
+            fakeClient.OnPhoneRing += Raise.WithEmpty().Now;
+
+            phone.RejectCall();
+            phone.AcceptCall();
+
+            A.CallTo(() => fakeClient.Connect()).MustNotHaveHappened();
+        }
     }
 }
