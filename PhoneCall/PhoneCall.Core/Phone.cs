@@ -2,11 +2,11 @@
 {
     public class Phone
     {
-        private readonly IPhoneClient _fakeClient;
+        private readonly IPhoneClient _client;
 
-        public Phone(IPhoneClient fakeClient)
+        public Phone(IPhoneClient client)
         {
-            _fakeClient = fakeClient;
+            _client = client;
         }
     }
 }
