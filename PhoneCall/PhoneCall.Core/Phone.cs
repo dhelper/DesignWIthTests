@@ -8,5 +8,10 @@
         {
             _client = client;
         }
+
+        public void AcceptCall()
+        {
+            _client.Connect();
+        }
     }
 }
