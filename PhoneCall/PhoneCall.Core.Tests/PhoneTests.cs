@@ -17,6 +17,8 @@ namespace PhoneCall.Core.Tests
 
             phone.AcceptCall();
 
+            fakeClient.OnConnectedToServer += Raise.WithEmpty().Now;
+
             A.CallTo(() => fakeClient.Connect()).MustHaveHappened();
         }
 
