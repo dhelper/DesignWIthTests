@@ -25,5 +25,10 @@ namespace PhoneCall.Core
                 _client.Connect();
             }
         }
+
+        public void RejectCall()
+        {
+            _phoneAlreadyRang = false;
+        }
     }
 }
