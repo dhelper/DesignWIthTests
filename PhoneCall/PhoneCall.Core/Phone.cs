@@ -1,17 +1,29 @@
-﻿namespace PhoneCall.Core
+﻿using System;
+
+namespace PhoneCall.Core
 {
     public class Phone
     {
         private readonly IPhoneClient _client;
+        private bool _phoneAlreadyRang;
 
         public Phone(IPhoneClient client)
         {
             _client = client;
+            _client.OnPhoneRing += HandlePhoneRing;
+        }
+
+        private void HandlePhoneRing(object sender, EventArgs e)
+        {
+            _phoneAlreadyRang = true;
         }
 
         public void AcceptCall()
         {
-            _client.Connect();
+            if (_phoneAlreadyRang)
+            {
+                _client.Connect();
+            }
         }
     }
 }
