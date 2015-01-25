@@ -19,6 +19,17 @@ namespace PhoneCall.Core.Tests
 
             A.CallTo(() => fakeClient.Connect()).MustHaveHappened();
         }
-     
+
+        [Test]
+        public void AcceptCall_WithoutPhoneRing_DoNotConnectToServer()
+        {
+            var fakeClient = A.Fake<IPhoneClient>();
+
+            var phone = new Phone(fakeClient);
+
+            phone.AcceptCall();
+
+            A.CallTo(() => fakeClient.Connect()).MustNotHaveHappened();
+        }
     }
 }
