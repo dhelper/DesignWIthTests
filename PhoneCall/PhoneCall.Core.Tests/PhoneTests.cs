@@ -7,7 +7,7 @@ namespace PhoneCall.Core.Tests
     public class PhoneTests
     {
         [Test]
-        public void OnPhoneRings_PhoneRingsMessageAndUserAcceptsCallThenRecieveMessageFromCaller_ConnectToServer()
+        public void OnPhoneRings_PhoneRingsMessageAndUserAcceptsCall_ConnectToServer()
         {
             var fakeClient = A.Fake<IPhoneClient>();
 
